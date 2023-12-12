@@ -9,14 +9,14 @@ function App() {
   const [currentPage, setCurrentPage] = useState(1);
   const [moviesPerPage, ] = useState(10);
 
-  useEffect(() => {
-    fetchMovies();
-  }, [filter]);
+  // useEffect(() => {
+  //   fetchMovies();
+  // }, [filter]);
 
-  const fetchMovies = async () => {
-    const response = await axios.get(`https://api.themoviedb.org/3/search/movie?api_key=<<api_key>>&query=${query}`);
-    setMovies(response.data.results);
-  };
+  // const fetchMovies = async () => {
+  //   const response = await axios.get(`https://api.themoviedb.org/3/search/movie?api_key=<<api_key>>&query=${query}`);
+  //   setMovies(response.data.results);
+  // };
 
   const handlePageChange = (event) => {
     setCurrentPage(Number(event.target.id));
