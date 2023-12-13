@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef, createRef } from 'react';
+import PropTypes from 'prop-types';
 import axios from 'axios';
-import { Button, FormGroup, Grid, Stack } from '@mui/material';
+import { AppBar, Button, FormGroup, Grid, Stack, useScrollTrigger } from '@mui/material';
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 import Checkbox from '@mui/material/Checkbox';
@@ -11,7 +12,33 @@ import {ModalComponent} from './Modal/ModalComponent'
 const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
 const checkedIcon = <CheckBoxIcon fontSize="small" />;
 
-export function SearchMovies(){
+
+function ElevationScroll(props) {
+    const { children, window } = props;
+    // Note that you normally won't need to set the window ref as useScrollTrigger
+    // will default to window.
+    // This is only being set here because the demo is in an iframe.
+    const trigger = useScrollTrigger({
+      disableHysteresis: true,
+      threshold: 0,
+      target: window ? window() : undefined,
+    });
+  
+    return React.cloneElement(children, {
+      elevation: trigger ? 4 : 0,
+    });
+  }
+  
+  ElevationScroll.propTypes = {
+    children: PropTypes.element.isRequired,
+    /**
+     * Injected by the documentation to work in an iframe.
+     * You won't need it on your project.
+     */
+    window: PropTypes.func,
+};
+
+export function SearchMovies(props){
 
     const searchInputRef = useRef()
     const paginationBtnRef = useRef([])
@@ -78,29 +105,34 @@ export function SearchMovies(){
     return (
         <>
         <Stack>
-            <Grid key={crypto.randomUUID()} container>
-                <Grid item xs={12} display="flex" flexDirection={{xs:"column", md: "row"}} alignItems="center" sx={{
-                    " > label": {
-                        whiteSpace: "nowrap",
-                        marginRight: "1rem",
-                    }
-                }}>
-                {/* search input field */}
-                <FormGroup className='search-input-grp'>
-                    <label htmlFor="search-input">Search Movies: </label>
-                    <input placeholder='Search Movies...' id='search-input' className='input-search' type="text" ref={searchInputRef} value={query} onChange={(e) => setQuery(e.target.value)} />
-                </FormGroup>
-                {/* select dropdown */}
-                <FormGroup className='select-input-grp'>
-                    <label htmlFor="select-input">Filter By Genre: </label>
-                    <select id='select-input' className='genre-select' value={filter} data-genre={dataGenre} onChange={(e) => handleSelectChange(e)}>
-                        {genre.map((genre, index) => {
-                            return <option key={genre.id} data-genre-id={genre.id} value={genre.name} >{genre.name}</option>
-                        })}
-                    </select>
-                </FormGroup>
-                </Grid>
-            </Grid>
+            <ElevationScroll {...props}>
+                <AppBar>
+                    <Grid key={crypto.randomUUID()} container>
+                        <Grid item xs={12} display="flex" flexDirection={{xs:"column", md: "row"}} alignItems="center" sx={{
+                            " > label": {
+                                whiteSpace: "nowrap",
+                                marginRight: "1rem",
+                            }
+                        }}>
+                        {/* search input field */}
+                        <FormGroup className='search-input-grp'>
+                            <label htmlFor="search-input">Search Movies: </label>
+                            <input placeholder='Search Movies...' id='search-input' className='input-search' type="text" ref={searchInputRef} value={query} onChange={(e) => setQuery(e.target.value)} />
+                        </FormGroup>
+                        {/* select dropdown */}
+                        <FormGroup className='select-input-grp'>
+                            <label htmlFor="select-input">Filter By Genre: </label>
+                            <select id='select-input' className='genre-select' value={filter} data-genre={dataGenre} onChange={(e) => handleSelectChange(e)}>
+                                {genre.map((genre, index) => {
+                                    return <option key={genre.id} data-genre-id={genre.id} value={genre.name} >{genre.name}</option>
+                                })}
+                            </select>
+                        </FormGroup>
+                        </Grid>
+                    </Grid>
+                </AppBar>
+            </ElevationScroll>
+            
             <Grid key={crypto.randomUUID()} className="movies" container>
             {currentMovies.map((movie, index) => {
                     // if (dataGenre.some(item => movie.genre_ids.includes(item))){

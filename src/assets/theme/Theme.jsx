@@ -11,6 +11,16 @@ export const theme = createTheme({
         },
     },
     components: {
+        MuiAppBar: {
+            styleOverrides: {
+                root: {
+                    position: "sticky",
+                    top: 0,
+                    backgroundColor: "rgba(25, 118, 210, 0.3)",
+                    backdropFilter: "blur(10px)",
+                }
+            }
+        },
         MuiGrid: {
             styleOverrides: {
                 container: {
