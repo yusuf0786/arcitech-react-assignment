@@ -22,3 +22,9 @@ html {
 }
 
 
+body {
+    font-family: Roboto, sans-serif;
+}
+
+@import '../../components/searchmovies';
+@import '../../components/Modal/modal';
