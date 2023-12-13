@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef, createRef } from 'react';
 import axios from 'axios';
-import { Button, Grid, Stack } from '@mui/material';
+import { Button, FormGroup, Grid, Stack } from '@mui/material';
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 import Checkbox from '@mui/material/Checkbox';
@@ -79,22 +79,26 @@ export function SearchMovies(){
         <>
         <Stack>
             <Grid key={crypto.randomUUID()} container>
-                <Grid item xs={12} display="flex" alignItems="center" sx={{
+                <Grid item xs={12} display="flex" flexDirection={{xs:"column", md: "row"}} alignItems="center" sx={{
                     " > label": {
                         whiteSpace: "nowrap",
                         marginRight: "1rem",
                     }
                 }}>
                 {/* search input field */}
-                <label htmlFor="search-input">Search Movies: </label>
-                <input placeholder='Search Movies...' id='search-input' className='input-search' type="text" ref={searchInputRef} value={query} onChange={(e) => setQuery(e.target.value)} />
+                <FormGroup className='search-input-grp'>
+                    <label htmlFor="search-input">Search Movies: </label>
+                    <input placeholder='Search Movies...' id='search-input' className='input-search' type="text" ref={searchInputRef} value={query} onChange={(e) => setQuery(e.target.value)} />
+                </FormGroup>
                 {/* select dropdown */}
-                <label htmlFor="select-input">Filter By Genre: </label>
-                <select id='select-input' className='genre-select' value={filter} data-genre={dataGenre} onChange={(e) => handleSelectChange(e)}>
-                    {genre.map((genre, index) => {
-                        return <option key={genre.id} data-genre-id={genre.id} value={genre.name} >{genre.name}</option>
-                    })}
-                </select>
+                <FormGroup className='select-input-grp'>
+                    <label htmlFor="select-input">Filter By Genre: </label>
+                    <select id='select-input' className='genre-select' value={filter} data-genre={dataGenre} onChange={(e) => handleSelectChange(e)}>
+                        {genre.map((genre, index) => {
+                            return <option key={genre.id} data-genre-id={genre.id} value={genre.name} >{genre.name}</option>
+                        })}
+                    </select>
+                </FormGroup>
                 </Grid>
             </Grid>
             <Grid key={crypto.randomUUID()} className="movies" container>

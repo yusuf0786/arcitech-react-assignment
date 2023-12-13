@@ -37,7 +37,7 @@ export function ModalComponent({
 
     return (
         <>
-        <Grid onClick={handleModalOpen} key={index} className='movie-card-grid' item xs={6} md={3}>
+        <Grid onClick={handleModalOpen} key={index} className='movie-card-grid' item xs={12} sm={6} md={4} mb={2}>
             <div className="movie-card">
                 <h2 title={movie.title}>{textTruncate(movie.title, 20, 15, 5)}</h2>
                 <div className="movie-card-image"><img src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`} alt={movie.title} /></div>

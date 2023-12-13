@@ -1,8 +1,8 @@
 There are 2 ways to run the app, either you go to the Netlify link or Download the Github Repo
 
-1. Netlify Link: 
+1. Netlify Link: https://yusuf-arcitech-react-assignment.netlify.app/
 
-2. Download the Github Repository
+2. Download the Github Repository here: https://github.com/yusuf0786/arcitech-react-assignment
     * prerequezits: Latest stable version (LTS) of NodeJS
     * Unzip the package
     * with the commond prompt go to the unziped folder via directory (or you can open the folder in VS Code than open new Terminal)
