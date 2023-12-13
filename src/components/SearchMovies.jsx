@@ -108,12 +108,7 @@ export function SearchMovies(props){
             <ElevationScroll {...props}>
                 <AppBar>
                     <Grid key={crypto.randomUUID()} container>
-                        <Grid item xs={12} display="flex" flexDirection={{xs:"column", md: "row"}} alignItems="center" sx={{
-                            " > label": {
-                                whiteSpace: "nowrap",
-                                marginRight: "1rem",
-                            }
-                        }}>
+                        <Grid item xs={12} display="flex" flexDirection={{xs:"column", md: "row"}} alignItems="center">
                         {/* search input field */}
                         <FormGroup className='search-input-grp'>
                             <label htmlFor="search-input">Search Movies: </label>
