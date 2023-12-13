@@ -43,7 +43,7 @@ export function ModalComponent({
                 <div className="movie-card-image"><img src={`https://image.tmdb.org/t/p/w500/${movie.poster_path}`} alt={movie.title} /></div>
             </div>
         </Grid>
-        <Modal open={open} onClose={handleModalClose} aria-labelledby="modal-modal-title" aria-describedby="modal-modal-description" >
+        <Modal open={open} onClose={() => handleModalClose()} aria-labelledby="modal-modal-title" aria-describedby="modal-modal-description" >
             <Box className="modal-container">
                 <div className="modal modal-body-scroll">
                     <div className="modal-header">

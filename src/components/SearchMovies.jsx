@@ -129,12 +129,11 @@ export function SearchMovies(props){
             </ElevationScroll>
             
             <Grid key={crypto.randomUUID()} className="movies" container>
-            {currentMovies.map((movie, index) => {
-                    // if (dataGenre.some(item => movie.genre_ids.includes(item))){
-                    if (movie.genre_ids.includes(parseInt(dataGenre))){
-                        return <ModalComponent key={crypto.randomUUID()} index={index} movie={{title: movie.title, poster_path: movie.poster_path, overview: movie.overview, release_date: movie.release_date,}} />
-                    }
-                })}
+            {currentMovies && 
+            currentMovies.map((movie, index) => (
+                // if (dataGenre.some(item => movie.genre_ids.includes(item))){
+                movie.genre_ids.includes(parseInt(dataGenre)) ? <ModalComponent key={crypto.randomUUID()} index={index} movie={{title: movie.title, poster_path: movie.poster_path, overview: movie.overview, release_date: movie.release_date,}} /> : null
+            ))}
             </Grid>
             <Grid className="pagination" container>
                 <Grid item xs={12} ref={paginationBtnRef}>
