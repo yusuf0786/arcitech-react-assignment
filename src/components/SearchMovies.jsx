@@ -138,7 +138,7 @@ export function SearchMovies(props){
             <Grid className="pagination" container>
                 <Grid item xs={12} ref={paginationBtnRef}>
                 {[...Array(Math.ceil(movies.length / moviesPerPage))].map((e, i) => (
-                    <Button variant="outlined" key={i} id={i + 1} onClick={(event) => handlePageChange(event)}>{i + 1}</Button>
+                    <Button variant="outlined" className={i === 0 ? "active" : ""} key={i} id={i + 1} onClick={(event) => handlePageChange(event)}>{i + 1}</Button>
                 ))}
                 </Grid>
             </Grid>
