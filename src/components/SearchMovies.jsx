@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef, createRef } from 'react';
 import PropTypes from 'prop-types';
 import axios from 'axios';
-import { AppBar, Button, FormGroup, Grid, Stack, useScrollTrigger } from '@mui/material';
+import { AppBar, Button, FormGroup, Grid, Stack, debounce, useScrollTrigger } from '@mui/material';
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 import Checkbox from '@mui/material/Checkbox';
@@ -40,7 +40,7 @@ function ElevationScroll(props) {
 
 export function SearchMovies(props){
 
-    const searchInputRef = useRef()
+    const searchInputRef = useRef(null)
     const paginationBtnRef = useRef([])
     const [query, setQuery] = useState('');
 
@@ -55,6 +55,7 @@ export function SearchMovies(props){
     const [moviesPerPage, ] = useState(10);
 
     useEffect(() => {
+        searchInputRef.current.focus()
         let debounce = setTimeout(() => {
             fetchMovies().catch(error => {
                 let promptAlert = prompt("Error: " + error.message +"\nDo you want to try again?" , "yes");
@@ -78,7 +79,6 @@ export function SearchMovies(props){
 
         setMovies(moviesResponse.data.results);
         setGenre(genreResponse.data.genres)
-        searchInputRef.current.focus()
     };
 
     const handleSelectChange = (e) => {
@@ -112,7 +112,7 @@ export function SearchMovies(props){
                         {/* search input field */}
                         <FormGroup className='search-input-grp'>
                             <label htmlFor="search-input">Search Movies: </label>
-                            <input placeholder='Search Movies...' id='search-input' className='input-search' type="text" ref={searchInputRef} value={query} onChange={(e) => setQuery(e.target.value)} />
+                            <input ref={searchInputRef} placeholder='Search Movies...' id='search-input' className='input-search' type="text" value={query} onChange={(e) => setQuery(e.target.value)} />
                         </FormGroup>
                         {/* select dropdown */}
                         <FormGroup className='select-input-grp'>
@@ -132,7 +132,7 @@ export function SearchMovies(props){
             {currentMovies && 
             currentMovies.map((movie, index) => (
                 // if (dataGenre.some(item => movie.genre_ids.includes(item))){
-                movie.genre_ids.includes(parseInt(dataGenre)) ? <ModalComponent key={crypto.randomUUID()} index={index} movie={{title: movie.title, poster_path: movie.poster_path, overview: movie.overview, release_date: movie.release_date,}} /> : null
+                movie.genre_ids.includes(parseInt(dataGenre)) ? <ModalComponent key={crypto.randomUUID()} index={index} id={movie.id} /> : null
             ))}
             </Grid>
             <Grid className="pagination" container>
