@@ -8,6 +8,10 @@
     display: flex;
     justify-content: center;
     align-items: center; 
+
+    &:focus-visible {
+        outline: 0;
+    }
 }
 .modal-container .modal {
 max-width: 1200px;
