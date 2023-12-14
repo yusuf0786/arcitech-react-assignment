@@ -107,12 +107,12 @@ export function SearchMovies(props){
         <Stack>
             <ElevationScroll {...props}>
                 <AppBar>
-                    <Grid key={crypto.randomUUID()} container>
+                    <Grid container>
                         <Grid item xs={12} display="flex" flexDirection={{xs:"column", md: "row"}} alignItems="center">
                         {/* search input field */}
                         <FormGroup className='search-input-grp'>
                             <label htmlFor="search-input">Search Movies: </label>
-                            <input ref={searchInputRef} placeholder='Search Movies...' id='search-input' className='input-search' type="text" value={query} onChange={(e) => setQuery(e.target.value)} />
+                            <input autoFocus ref={searchInputRef} placeholder='Search Movies...' id='search-input' className='input-search' type="text" value={query} onChange={(e) => setQuery(e.target.value)} />
                         </FormGroup>
                         {/* select dropdown */}
                         <FormGroup className='select-input-grp'>
@@ -128,11 +128,11 @@ export function SearchMovies(props){
                 </AppBar>
             </ElevationScroll>
             
-            <Grid key={crypto.randomUUID()} className="movies" container>
+            <Grid className="movies" container>
             {currentMovies && 
             currentMovies.map((movie, index) => (
                 // if (dataGenre.some(item => movie.genre_ids.includes(item))){
-                movie.genre_ids.includes(parseInt(dataGenre)) ? <ModalComponent key={crypto.randomUUID()} index={index} id={movie.id} /> : null
+                movie.genre_ids.includes(parseInt(dataGenre)) ? <ModalComponent key={`abc${index}`} index={index} id={movie.id} /> : null
             ))}
             </Grid>
             <Grid className="pagination" container>
