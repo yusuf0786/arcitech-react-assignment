@@ -55,7 +55,7 @@ export function SearchMovies(props){
     const [moviesPerPage, ] = useState(10);
 
     useEffect(() => {
-        searchInputRef.current.focus()
+        // searchInputRef.current.focus()
         let debounce = setTimeout(() => {
             fetchMovies().catch(error => {
                 let promptAlert = prompt("Error: " + error.message +"\nDo you want to try again?" , "yes");
@@ -64,11 +64,13 @@ export function SearchMovies(props){
                 }
             });
 
+            console.log(`https://api.themoviedb.org/3/search/movie?api_key=9e7c17c14466104df6e6923d6de2dab5&query=${query}&with_genres=${dataGenre}`);
+
         }, 1000)
 
         return () => {
             clearTimeout(debounce)
-            searchInputRef.current.focus()
+            // searchInputRef.current.focus()
         };
 
     }, [filter, query]);
@@ -132,7 +134,8 @@ export function SearchMovies(props){
             {currentMovies && 
             currentMovies.map((movie, index) => (
                 // if (dataGenre.some(item => movie.genre_ids.includes(item))){
-                movie.genre_ids.includes(parseInt(dataGenre)) ? <ModalComponent key={`abc${index}`} index={index} id={movie.id} /> : null
+                // movie.genre_ids.includes(parseInt(dataGenre)) ? <ModalComponent key={`abc${index}`} index={index} id={movie.id} /> : null
+                <ModalComponent key={`abc${index}`} index={index} id={movie.id} />
             ))}
             </Grid>
             <Grid className="pagination" container>
